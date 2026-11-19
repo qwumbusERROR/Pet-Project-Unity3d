@@ -7,10 +7,10 @@ public class InputDebugger : MonoBehaviour
     private IInputVectorProvider _look;
 
     [Inject]
-    public void Construct(IObjectResolver resolver)
+    public void Construct([Key("Move")] IInputVectorProvider move, [Key("Look")] IInputVectorProvider look)
     {
-        _move = resolver.Resolve<IInputVectorProvider>("Move");
-        _look = resolver.Resolve<IInputVectorProvider>("Look");
+        _move = move;
+        _look = look;
         Debug.Log($"[Debug] move={_move?.GetType().Name}, look={_look?.GetType().Name}");
     }
 
