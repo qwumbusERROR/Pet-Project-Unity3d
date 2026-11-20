@@ -55,12 +55,17 @@ public class MovementConfig : ScriptableObject
         private float _maxWalkAngle = 55f;
         public float MaxWalkAngle => _maxWalkAngle;
     }
+
     [System.Serializable]
     public class GroundCheckSettings
     {
-        [SerializeField, Range(0f, 0.1f), Tooltip("Микрозазор, чтобы не залипать в поверхности")]
-        private float _skinWidth = 0.01f;
-        public float SkinWidth => _skinWidth;
+        [SerializeField, Tooltip("Прижимать к земле при спуске по ступенькам/склонам")]
+        private bool _snapDownEnabled = true;
+        public bool SnapDownEnabled => _snapDownEnabled;
+
+        [SerializeField, Range(0.05f, 1f), Tooltip("Макс. высота прижатия (≈ удвоенная высота ступеньки)")]
+        private float _snapDownDistance = 0.4f;
+        public float SnapDownDistance => _snapDownDistance;
     }
 
     public GroundMovementSettings GroundMoveSettings = new GroundMovementSettings();

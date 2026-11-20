@@ -11,6 +11,7 @@ public class CharacterMotor
 
     public float VerticalVelocity => _verticalVelocity;
     public PlayerGroundedInfo Grounded {get; private set;}
+    public bool _wasGrounded;
 
     public CharacterMotor(CharacterController controller, MovementConfig config, LayerMask groundMask)
     {
@@ -40,7 +41,6 @@ public class CharacterMotor
             _verticalVelocity = config.TerminalVelocity;
     }
 
-
     public void MoveHorizontal(Vector3 desired, float accel, float decel, float deltaTime)
     {
         float rate = desired.sqrMagnitude > 0.01f ? accel : decel;
@@ -54,22 +54,52 @@ public class CharacterMotor
 
         _controller.Move(motion * deltaTime);
 
+        SnapDown();                          
+
         Grounded = CheckGrounded();
+        _wasGrounded = Grounded.StandingOnGround;
+    }
+
+    private Vector3 GetCapsuleBottom()
+    {
+        Vector3 worldCenter = _controller.transform.TransformPoint(_controller.center);
+        float halfHeight = Mathf.Max(_controller.height * 0.5f, _controller.radius);
+        return worldCenter - Vector3.up * (halfHeight - _controller.radius);
+    }
+
+    private void SnapDown()
+    {
+        var ground = _config.GroundCheck;
+        if (!ground.SnapDownEnabled) return;
+        if (!_wasGrounded) return;                 
+        if (_verticalVelocity > 0f) return;      
+
+        float skin = _controller.skinWidth;
+        float radius = _controller.radius * 0.9f;
+        float distance = ground.SnapDownDistance + skin;
+
+        Vector3 origin = GetCapsuleBottom() + Vector3.up * skin;
+
+        if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hit,
+                distance, _groundMask, QueryTriggerInteraction.Ignore))
+        {
+            float snap = hit.distance - skin;       
+            if (snap > 0f)
+                _controller.Move(Vector3.down * snap);
+
+            _verticalVelocity = 0f;             
+        }
     }
 
     private PlayerGroundedInfo CheckGrounded()
     {
         var verticalSettings = _config.VerticalMoveSettings;
 
-        Vector3 worldCenter = _controller.transform.TransformPoint(_controller.center);
-        float halfHeight = Mathf.Max(_controller.height * 0.5f, _controller.radius);
-        Vector3 bottom = worldCenter - Vector3.up * (halfHeight - _controller.radius);
-
         float radius = _controller.radius * 0.9f;
-        float skin = _config.GroundCheck.SkinWidth;
+        float skin = _controller.skinWidth;
         float distance = verticalSettings.GroundedDistance + skin;
 
-        Vector3 origin = bottom + Vector3.up * skin;
+        Vector3 origin = GetCapsuleBottom() + Vector3.up * skin;
 
         if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hit,
                 distance, _groundMask, QueryTriggerInteraction.Ignore))
