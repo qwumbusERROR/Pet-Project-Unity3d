@@ -13,7 +13,12 @@ public class GroundedState : IMovementState
 
     public MovementStateId Id => MovementStateId.Grounded;
 
-    public void Enter() { }
+    public void Enter() 
+    {
+        #if UNITY_EDITOR
+            Debug.Log("Enter to grounded states");
+        #endif
+    }
     public void Exit() { }
 
     public MovementStateId Tick(Vector2 input, float deltaTime)
@@ -22,7 +27,11 @@ public class GroundedState : IMovementState
         Vector3 desired = _motor.ToWorldDirection(input) * config.WalkSpeed;
         
         _motor.MoveHorizontal(desired, config.Acceleration, config.Deceleration, deltaTime);
+        _motor.ApplyGravity(deltaTime);
         _motor.Move(deltaTime);
+
+        if (!_motor.IsGrounded && _motor.VerticalVelocity < 0f)
+            return MovementStateId.Airborne;
 
         return Id;
     }

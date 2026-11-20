@@ -6,15 +6,18 @@ public class PlayerLifetimeScope : LifetimeScope
 {
     [SerializeField] private MovementConfig _playerMoveConfig;
     [SerializeField] private CharacterController _playerController;
+    [SerializeField] private LayerMask _groundedLayer;
 
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponent(_playerController);
         builder.RegisterInstance(_playerMoveConfig);
 
-        builder.Register<CharacterMotor>(Lifetime.Singleton);
+        builder.Register<CharacterMotor>(Lifetime.Singleton)
+               .WithParameter<LayerMask>(_groundedLayer); 
 
         builder.Register<GroundedState>(Lifetime.Singleton).As<IMovementState>();
+        builder.Register<AirborneState>(Lifetime.Singleton).As<IMovementState>();
 
         builder.Register<MovementStateMachine>(Lifetime.Singleton);
         builder.RegisterEntryPoint<PlayerMovement>();

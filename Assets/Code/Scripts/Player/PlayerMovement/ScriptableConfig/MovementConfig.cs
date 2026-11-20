@@ -29,6 +29,25 @@ public class MovementConfig : ScriptableObject
         private float _deceleration = 1.5f;
         public float Deceleration => _deceleration;
     }
+    [System.Serializable]public class VerticalSettings
+    {
+        [SerializeField, Range(-40f, -5f), Tooltip("Сила гравитации")]
+        private float _gravity = -20f;
+        public float Gravity => _gravity;
+
+        [SerializeField, Range(-5f, 0f), Tooltip("Сила прижатия к земле")]
+        private float _groundedStick = -2f;
+        public float GroundedStick => _groundedStick;
+
+         [SerializeField, Range(-60f, -10f), Tooltip("Предельная скорость падения")]
+        private float _terminalVelocity = -40f;
+        public float TerminalVelocity => _terminalVelocity;
+
+        [SerializeField, Range(0f, 1f), Tooltip("Доля контроля в воздухе")]
+        private float _airControlMultiplier = 0.3f;
+        public float AirControlMultiplier => _airControlMultiplier;
+    }
 
     public GroundMovementSettings GroundMoveSettings = new GroundMovementSettings();
+    public VerticalSettings VerticalMoveSettings = new VerticalSettings();
 }
