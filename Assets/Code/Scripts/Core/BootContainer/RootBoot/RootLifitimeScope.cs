@@ -24,16 +24,12 @@ public class RootLifitimeScope : LifetimeScope
         builder.Register<InputActionService>(Lifetime.Singleton);
 
         builder.Register<PlayerMoveProvider>(Lifetime.Singleton)
-               .Keyed("Move")
                .As<IInputVectorProvider>()
                .As<System.IDisposable>();
 
         builder.Register<CameraLookProvider>(Lifetime.Singleton)
-               .Keyed("Look")
                .As<IInputVectorProvider>()
                .As<System.IDisposable>();
-
-        builder.RegisterComponentInHierarchy<InputDebugger>();
 
         builder.RegisterEntryPoint<InputEntryPoint>();
     }

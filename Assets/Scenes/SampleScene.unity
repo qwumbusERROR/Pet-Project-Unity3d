@@ -424,10 +424,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 768615533}
-  - component: {fileID: 768615534}
   - component: {fileID: 768615532}
+  - component: {fileID: 768615535}
   m_Layer: 0
-  m_Name: Player
+  m_Name: BootPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,7 +475,7 @@ Transform:
   - {fileID: 1120491771}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &768615534
+--- !u!114 &768615535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -484,9 +484,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 768615531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd612b9bdbac814291b55e43b9e07a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 7066d544fa4737b499de0f445b29c4f9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveInputDebugger
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLifetimeScope
+  parentReference:
+    TypeName: RootLifitimeScope
+  autoRun: 1
+  autoInjectGameObjects: []
+  _playerMoveConfig: {fileID: 11400000, guid: 18cd9e8cfb8ce19428147ac4e16e172f, type: 2}
+  _playerController: {fileID: 768615532}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

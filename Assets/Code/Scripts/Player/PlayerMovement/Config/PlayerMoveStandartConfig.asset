@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b6b3234edc8494cb96a8eb39ed7acf, type: 3}
   m_Name: PlayerMoveStandartConfig
   m_EditorClassIdentifier: Assembly-CSharp::MovementConfig
+  GroundMoveSettings:
+    _walkSpeed: 5
+    _sprintSpeedMultiplier: 1.2
+    _backwardSpeedMultiplier: 0.5
+    _strafeSpeedMultiplier: 0.75
+    _acceleration: 15
+    _deceleration: 12

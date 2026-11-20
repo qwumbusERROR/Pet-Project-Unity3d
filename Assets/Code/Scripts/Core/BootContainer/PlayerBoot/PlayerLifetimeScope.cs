@@ -13,8 +13,10 @@ public class PlayerLifetimeScope : LifetimeScope
         builder.RegisterInstance(_playerMoveConfig);
 
         builder.Register<CharacterMotor>(Lifetime.Singleton);
-        builder.Register<GroundedState>(Lifetime.Singleton);
 
+        builder.Register<GroundedState>(Lifetime.Singleton).As<IMovementState>();
+
+        builder.Register<MovementStateMachine>(Lifetime.Singleton);
         builder.RegisterEntryPoint<PlayerMovement>();
     }
 }
