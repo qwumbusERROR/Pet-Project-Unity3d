@@ -46,8 +46,24 @@ public class MovementConfig : ScriptableObject
         [SerializeField, Range(0f, 1f), Tooltip("Доля контроля в воздухе")]
         private float _airControlMultiplier = 0.3f;
         public float AirControlMultiplier => _airControlMultiplier;
+
+        [SerializeField, Range(0.01f, 0.5f), Tooltip("Порог 'стою на земле'")]
+        private float _groundedDistance = 0.15f;
+        public float GroundedDistance => _groundedDistance;
+
+        [SerializeField, Range(30f, 80f), Tooltip("Макс. угол проходимого склона")]
+        private float _maxWalkAngle = 55f;
+        public float MaxWalkAngle => _maxWalkAngle;
+    }
+    [System.Serializable]
+    public class GroundCheckSettings
+    {
+        [SerializeField, Range(0f, 0.1f), Tooltip("Микрозазор, чтобы не залипать в поверхности")]
+        private float _skinWidth = 0.01f;
+        public float SkinWidth => _skinWidth;
     }
 
     public GroundMovementSettings GroundMoveSettings = new GroundMovementSettings();
     public VerticalSettings VerticalMoveSettings = new VerticalSettings();
+    public GroundCheckSettings GroundCheck = new GroundCheckSettings();
 }

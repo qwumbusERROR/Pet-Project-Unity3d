@@ -30,7 +30,7 @@ public class GroundedState : IMovementState
         _motor.ApplyGravity(deltaTime);
         _motor.Move(deltaTime);
 
-        if (!_motor.IsGrounded && _motor.VerticalVelocity < 0f)
+        if (_motor.Grounded.Falling && _motor.VerticalVelocity < 0f)
             return MovementStateId.Airborne;
 
         return Id;

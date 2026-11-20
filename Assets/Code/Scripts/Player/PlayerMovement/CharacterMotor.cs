@@ -10,7 +10,7 @@ public class CharacterMotor
     private float _verticalVelocity;
 
     public float VerticalVelocity => _verticalVelocity;
-    public bool IsGrounded { get; private set; }
+    public PlayerGroundedInfo Grounded {get; private set;}
 
     public CharacterMotor(CharacterController controller, MovementConfig config, LayerMask groundMask)
     {
@@ -29,7 +29,7 @@ public class CharacterMotor
     {
         var config = _config.VerticalMoveSettings;
 
-        if (IsGrounded && _verticalVelocity <= 0f)
+        if (Grounded.StandingOnGround && _verticalVelocity <= 0f)
         {
             _verticalVelocity = config.GroundedStick;  
             return;
@@ -52,22 +52,43 @@ public class CharacterMotor
         Vector3 motion = _horizontalVelocity;
         motion.y = _verticalVelocity;
 
-        CollisionFlags flags =_controller.Move(motion * deltaTime);
+        _controller.Move(motion * deltaTime);
 
-        IsGrounded = (flags & CollisionFlags.Below) != 0 || CheckGrounded();
+        Grounded = CheckGrounded();
     }
 
-    public bool CheckGrounded()
+    private PlayerGroundedInfo CheckGrounded()
     {
+        var verticalSettings = _config.VerticalMoveSettings;
+
         Vector3 worldCenter = _controller.transform.TransformPoint(_controller.center);
         float halfHeight = Mathf.Max(_controller.height * 0.5f, _controller.radius);
-        Vector3 bottomSphere = worldCenter - Vector3.up * (halfHeight - _controller.radius);
+        Vector3 bottom = worldCenter - Vector3.up * (halfHeight - _controller.radius);
 
-        Vector3 origin = bottomSphere + Vector3.up * 0.05f;
         float radius = _controller.radius * 0.9f;
-        float distance = 0.15f + 0.05f;            
+        float skin = _config.GroundCheck.SkinWidth;
+        float distance = verticalSettings.GroundedDistance + skin;
 
-        return Physics.SphereCast(
-            origin, radius, Vector3.down, out _,distance, _groundMask, QueryTriggerInteraction.Ignore);
+        Vector3 origin = bottom + Vector3.up * skin;
+
+        if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hit,
+                distance, _groundMask, QueryTriggerInteraction.Ignore))
+        {
+            return new PlayerGroundedInfo(
+                onGround: true,
+                distance: hit.distance - skin,
+                normal: hit.normal,
+                floor: hit.collider.gameObject,
+                groundedDistance: verticalSettings.GroundedDistance,
+                maxWalkAngle: verticalSettings.MaxWalkAngle);
+        }
+
+        return new PlayerGroundedInfo(
+            onGround: false,
+            distance: float.PositiveInfinity,
+            normal: Vector3.up,
+            floor: null,
+            groundedDistance: verticalSettings.GroundedDistance,
+            maxWalkAngle: verticalSettings.MaxWalkAngle);
     }
 }
