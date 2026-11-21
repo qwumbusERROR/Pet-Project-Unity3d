@@ -3,7 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewMoveConfig", menuName = "Player/MovementConfig/Create")]
 public class MovementConfig : ScriptableObject
 {
-    [System.Serializable]public class GroundMovementSettings
+    [System.Serializable]
+    public class GroundMovementSettings
     {
         [SerializeField, Range(1f, 50f), Tooltip("Скорость ходьбы")]
         private float _walkSpeed = 5f;
@@ -29,7 +30,9 @@ public class MovementConfig : ScriptableObject
         private float _deceleration = 1.5f;
         public float Deceleration => _deceleration;
     }
-    [System.Serializable]public class VerticalSettings
+
+    [System.Serializable]
+    public class VerticalSettings
     {
         [SerializeField, Range(-40f, -5f), Tooltip("Сила гравитации")]
         private float _gravity = -20f;
@@ -39,7 +42,7 @@ public class MovementConfig : ScriptableObject
         private float _groundedStick = -2f;
         public float GroundedStick => _groundedStick;
 
-         [SerializeField, Range(-60f, -10f), Tooltip("Предельная скорость падения")]
+        [SerializeField, Range(-60f, -10f), Tooltip("Предельная скорость падения")]
         private float _terminalVelocity = -40f;
         public float TerminalVelocity => _terminalVelocity;
 
@@ -54,16 +57,21 @@ public class MovementConfig : ScriptableObject
         [SerializeField, Range(30f, 80f), Tooltip("Макс. угол проходимого склона")]
         private float _maxWalkAngle = 55f;
         public float MaxWalkAngle => _maxWalkAngle;
+
+        [Header("Jump")]
+        [SerializeField, Range(0.5f, 2f), Tooltip("Макс. высота прыжка")]
+        private float _jumpHeight = 1.1f;
+        public float JumpHeight => _jumpHeight;
     }
 
     [System.Serializable]
     public class GroundCheckSettings
     {
-        [SerializeField, Tooltip("Прижимать к земле при спуске по ступенькам/склонам")]
+        [SerializeField, Tooltip("Прижимать к земле при спуске")]
         private bool _snapDownEnabled = true;
         public bool SnapDownEnabled => _snapDownEnabled;
 
-        [SerializeField, Range(0.05f, 1f), Tooltip("Макс. высота прижатия (≈ удвоенная высота ступеньки)")]
+        [SerializeField, Range(0.05f, 1f), Tooltip("Макс. высота прижатия")]
         private float _snapDownDistance = 0.4f;
         public float SnapDownDistance => _snapDownDistance;
     }

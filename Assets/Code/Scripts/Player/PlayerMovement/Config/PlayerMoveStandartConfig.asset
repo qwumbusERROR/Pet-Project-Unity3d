@@ -19,3 +19,14 @@ MonoBehaviour:
     _strafeSpeedMultiplier: 0.75
     _acceleration: 15
     _deceleration: 12
+  VerticalMoveSettings:
+    _gravity: -20
+    _groundedStick: -2
+    _terminalVelocity: -40
+    _airControlMultiplier: 0.3
+    _groundedDistance: 0.15
+    _maxWalkAngle: 55
+    _jumpHeight: 1.1
+  GroundCheck:
+    _snapDownEnabled: 1
+    _snapDownDistance: 0.4

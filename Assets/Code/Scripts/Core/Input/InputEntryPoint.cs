@@ -1,16 +1,20 @@
 using VContainer.Unity;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class InputEntryPoint : IStartable, System.IDisposable
 {
     private readonly InputActionService _service;
-    private readonly IEnumerable<IInputVectorProvider> _providers;
+    private readonly List<IInputVectorProvider> _vectorProvider;
+    private readonly List<IInputBoolProvider> _buttonProvider;
 
-    public InputEntryPoint(InputActionService service, IEnumerable<IInputVectorProvider> providers)
+    public InputEntryPoint(InputActionService service, 
+        IEnumerable<IInputVectorProvider> vectors, IEnumerable<IInputBoolProvider> buttons)
     {
         _service = service;
-        _providers = providers;
+        _vectorProvider = vectors.ToList();
+        _buttonProvider = buttons.ToList();
     }
 
     public void Start()
@@ -19,7 +23,6 @@ public class InputEntryPoint : IStartable, System.IDisposable
 
         #if UNITY_EDITOR
             Debug.Log("[InputEntryPoint] Input enabled");
-            Debug.Log($"[InputEntryPoint] providers={System.Linq.Enumerable.Count(_providers)}");
 
         #endif
     }

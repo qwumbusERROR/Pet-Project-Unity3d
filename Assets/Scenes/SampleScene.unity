@@ -928,6 +928,7 @@ MonoBehaviour:
   autoInjectGameObjects: []
   _moveVector: {fileID: 11400000, guid: 98be2fc487d1af1479c0d660630d70a8, type: 2}
   _lookVector: {fileID: 11400000, guid: b966d1c2e67c45f46b2e8f408f5052d8, type: 2}
+  _jumpCallback: {fileID: 11400000, guid: 12fd8acd29e54e64d8e64f2748b0f28c, type: 2}
 --- !u!4 &1387282313
 Transform:
   m_ObjectHideFlags: 0

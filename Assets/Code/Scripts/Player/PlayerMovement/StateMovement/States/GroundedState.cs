@@ -4,11 +4,13 @@ public class GroundedState : IMovementState
 {
     private readonly CharacterMotor _motor;
     private readonly MovementConfig _config;
+    private readonly IInputBoolProvider _jumpInput;
 
-    public GroundedState(CharacterMotor motor, MovementConfig config)
+    public GroundedState(CharacterMotor motor, MovementConfig config, IInputBoolProvider jumpInput)
     {
         _motor = motor;
         _config = config;
+        _jumpInput = jumpInput;
     }
 
     public MovementStateId Id => MovementStateId.Grounded;
@@ -29,6 +31,14 @@ public class GroundedState : IMovementState
         _motor.MoveHorizontal(desired, config.Acceleration, config.Deceleration, deltaTime);
         _motor.ApplyGravity(deltaTime);
         _motor.Move(deltaTime);
+
+        if (_jumpInput.InputCallback.Value && _motor.Grounded.StandingOnGround)
+        {
+            _motor.Jump();
+
+            _jumpInput.InputCallback.Value = false;
+            return MovementStateId.Airborne;
+        }
 
         if (_motor.Grounded.Falling && _motor.VerticalVelocity < 0f)
             return MovementStateId.Airborne;
