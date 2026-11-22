@@ -1,4 +1,4 @@
-namespace Application.Input
+namespace Game.Input
 {
     public interface IReadInput<TValue>
     {

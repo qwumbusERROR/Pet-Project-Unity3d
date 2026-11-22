@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Application.Input
+namespace Game.Input
 {   
     public sealed class MoveReader : IMoveInput
     {
@@ -15,6 +15,5 @@ namespace Application.Input
         public Vector2 ReadValue() => _actions.Player.Move.ReadValue<Vector2>(); 
 
     }
-
 }
 
