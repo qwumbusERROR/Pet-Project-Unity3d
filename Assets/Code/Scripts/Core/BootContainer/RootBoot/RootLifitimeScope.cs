@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
+using Infrastructure.Config;
+using Game.Input;
 
 public class RootLifitimeScope : LifetimeScope
 {
@@ -9,6 +11,9 @@ public class RootLifitimeScope : LifetimeScope
     [SerializeField] private ReactiveVariable<Vector2> _moveVector;
     [SerializeField] private ReactiveVariable<Vector2> _lookVector;
     [SerializeField] private ReactiveVariable<bool> _jumpCallback;
+
+    [Header("Input Smoothing")]
+    [SerializeField] private InputSmoothingConfig _smoothingConfig;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -39,6 +44,16 @@ public class RootLifitimeScope : LifetimeScope
        builder.Register<PlayerJumpProvider>(Lifetime.Singleton)
               .As<IInputBoolProvider>()
               .As<System.IDisposable>();
+
+       builder.RegisterInstance(_smoothingConfig);
+       builder.Register<MoveReader>(Lifetime.Singleton);
+
+       builder.Register<IMoveInput>(container =>
+        {
+            var raw = container.Resolve<MoveReader>();
+            var cfg = container.Resolve<InputSmoothingConfig>();
+            return new MoveSmoothReader(raw,cfg.DirectionRate, cfg.MagnitudeRate);
+        }, Lifetime.Singleton);
 
        builder.RegisterEntryPoint<InputEntryPoint>();
     }

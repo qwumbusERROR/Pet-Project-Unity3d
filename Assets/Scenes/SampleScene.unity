@@ -571,7 +571,6 @@ GameObject:
   m_Component:
   - component: {fileID: 768615533}
   - component: {fileID: 768615532}
-  - component: {fileID: 768615535}
   m_Layer: 0
   m_Name: BootPlayer
   m_TagString: Untagged
@@ -621,27 +620,6 @@ Transform:
   - {fileID: 1120491771}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &768615535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 768615531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7066d544fa4737b499de0f445b29c4f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLifetimeScope
-  parentReference:
-    TypeName: RootLifitimeScope
-  autoRun: 1
-  autoInjectGameObjects: []
-  _playerMoveConfig: {fileID: 11400000, guid: 18cd9e8cfb8ce19428147ac4e16e172f, type: 2}
-  _playerController: {fileID: 768615532}
-  _groundedLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,7 +871,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120491770}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1387282311
+--- !u!1 &1223045865
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -901,44 +879,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1387282313}
-  - component: {fileID: 1387282312}
+  - component: {fileID: 1223045867}
+  - component: {fileID: 1223045866}
   m_Layer: 0
-  m_Name: BootScene
+  m_Name: RootScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1387282312
+--- !u!114 &1223045866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387282311}
+  m_GameObject: {fileID: 1223045865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ce7fcd07723ab3458bbe4014d326260, type: 3}
+  m_Script: {fileID: 11500000, guid: b4c6f7d3ed8ce20499168a1dba6142b4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InputLifetimeScope
-  parentReference:
-    TypeName: 
-  autoRun: 1
-  autoInjectGameObjects: []
-  _moveVector: {fileID: 11400000, guid: 98be2fc487d1af1479c0d660630d70a8, type: 2}
-  _lookVector: {fileID: 11400000, guid: b966d1c2e67c45f46b2e8f408f5052d8, type: 2}
-  _jumpCallback: {fileID: 11400000, guid: 12fd8acd29e54e64d8e64f2748b0f28c, type: 2}
---- !u!4 &1387282313
+  m_EditorClassIdentifier: Assembly-CSharp::GameInput
+  _inputSmoothConfig: {fileID: 11400000, guid: 3184734014ae67945a7f637c7b883912, type: 2}
+--- !u!4 &1223045867
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387282311}
+  m_GameObject: {fileID: 1223045865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.32155, y: -0, z: -11.07325}
+  m_LocalPosition: {x: -3.65532, y: -0, z: 0.49537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1063,5 +1035,5 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 768615533}
-  - {fileID: 1387282313}
   - {fileID: 105543642}
+  - {fileID: 1223045867}
