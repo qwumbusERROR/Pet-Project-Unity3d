@@ -1,0 +1,1 @@
+public interface ILookReadInput : IReadInput<UnityEngine.Vector2> { }

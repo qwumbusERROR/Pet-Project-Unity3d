@@ -915,7 +915,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f744ac61b8a1c74a999e42d3d4d5ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputScope
-  _playerInputRead: {fileID: 11400000, guid: 8ae1f6a985560e845a7f5406ee962c26, type: 2}
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
+  _smoothConfig: {fileID: 11400000, guid: b23e02d76d79cfc4c9a05e90e500533b, type: 2}
 --- !u!1 &1531751633
 GameObject:
   m_ObjectHideFlags: 0

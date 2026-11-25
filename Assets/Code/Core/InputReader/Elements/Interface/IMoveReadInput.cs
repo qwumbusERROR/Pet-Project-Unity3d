@@ -1,0 +1,1 @@
+public interface IMoveReadInput : IReadInput<UnityEngine.Vector2> { }
