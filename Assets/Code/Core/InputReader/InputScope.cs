@@ -3,7 +3,7 @@ using System;
 using VContainer;
 using VContainer.Unity;
 
-public sealed  class InputScope : LifetimeScope
+public sealed class InputScope : LifetimeScope
 {
     [SerializeField] private InputSmoothConfig _smoothConfig;
 
@@ -25,7 +25,5 @@ public sealed  class InputScope : LifetimeScope
                .As<ILookReadInput>()
                .As<IStartable>()
                .As<IDisposable>();
-
-        builder.RegisterEntryPoint<PlayerControllerInputRead>();
     }
 }

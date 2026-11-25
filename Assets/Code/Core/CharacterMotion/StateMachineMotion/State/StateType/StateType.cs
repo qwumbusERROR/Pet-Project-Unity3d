@@ -1,5 +1,7 @@
 public enum StateType
 {
     Grounded,
-    Airborned
+    Airborned,
+    Idle,
+    Walk,
 }

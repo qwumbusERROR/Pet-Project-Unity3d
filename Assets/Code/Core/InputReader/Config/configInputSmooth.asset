@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1996b83b4efc54eb5f1e97a9859712, type: 3}
   m_Name: configInputSmooth
   m_EditorClassIdentifier: Assembly-CSharp::InputSmoothConfig
-  DirectionRate: 10
+  DirectionRate: 4

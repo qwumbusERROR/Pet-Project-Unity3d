@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 using VContainer.Unity;
 
 public sealed class StateMachineMotion
@@ -9,6 +10,8 @@ public sealed class StateMachineMotion
     private IState _currentState;
     public object CurrentState => _currentState;
 
+    public event System.Action<IState> StateChanged;
+
     public StateMachineMotion(IEnumerable<IState> states)
     {
         foreach (var state in states)
@@ -17,17 +20,35 @@ public sealed class StateMachineMotion
 
     public void Start(StateType startState)
     {
-        _currentState = _states[startState];
-        _currentState.Enter();
+        ChangeState(startState);
     }
 
-    public void Update(float time)
+    public void ChangeState(StateType state)
     {
-        StateType next = _currentState.Tickable(time);
-        if (next == _currentState.Id) return;
+        if (_currentState != null && _currentState.Id == state)
+            return;
 
-        _currentState.Exit();
-        _currentState = _states[next];
+        if (!_states.TryGetValue(state, out IState nextState))
+        {
+            throw new ArgumentException($"State {state} is not registered in StateMachine.");
+        }
+
+        _currentState?.Exit();
+        _currentState = nextState;
         _currentState.Enter();
+        
+        StateChanged?.Invoke(_currentState);
+    }
+
+    public void Update(float deltaTime)
+    {
+        if (_currentState is null)
+            return;
+
+        StateType nextState = _currentState.Tickable(deltaTime);
+        if (nextState != _currentState.Id)
+        {
+            ChangeState(nextState);
+        }
     }
 }

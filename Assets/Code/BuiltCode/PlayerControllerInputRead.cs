@@ -16,7 +16,5 @@ public class PlayerControllerInputRead : ITickable
 
         if (move.sqrMagnitude < 0.0001f)
             return;   
-
-        Debug.Log($"[Input] Move: ({move.x:F2}, {move.y:F2})  |mag={move.magnitude:F2}");
     }
 }
