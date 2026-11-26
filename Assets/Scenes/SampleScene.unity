@@ -638,6 +638,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _controller: {fileID: 768615532}
+  _config: {fileID: 11400000, guid: 1e12bbda7acc53243a5ad6a8cba71a04, type: 2}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
