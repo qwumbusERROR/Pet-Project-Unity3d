@@ -54,10 +54,9 @@ public sealed class StateMachine
             return;
         }
 
-        var previous = Current;
-        previous.Exit();
+        Current.Exit();
         Current = next;
-        next.Enter();
+        Current.Enter();
         StateChanged?.Invoke(Current);
     }
 }
